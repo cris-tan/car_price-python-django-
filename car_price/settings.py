@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     'rest_framework',
 
+    'robots',
     # 'allauth',
     # 'allauth.account',
     # 'allauth.socialaccount',
@@ -69,6 +70,7 @@ MIDDLEWARE_CLASSES = [
     'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'django.contrib.redirects.middleware.RedirectFallbackMiddleware',
 ]
 
 ROOT_URLCONF = 'car_price.urls'
@@ -88,6 +90,13 @@ TEMPLATES = [
         },
     },
 ]
+PREPEND_WWW = False
+TEMPLATE_LOADERS = ['django.template.loaders.app_directories.Loader']
+ROBOTS_USE_SITEMAP = False
+ROBOTS_SITEMAP_URLS = [
+    'http://www.supercarreport.com/sitemap',
+]
+ROBOTS_CACHE_TIMEOUT = 60*60*24
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [],
@@ -113,7 +122,7 @@ DATABASES = {
     'ENGINE': 'django.db.backends.mysql',
     'NAME': 'Car',
     'USER': 'root',
-    'PASSWORD': 'newfirst', 
+    'PASSWORD': 'root', 
     'HOST': 'localhost',
     # 'HOST': 'supercarreport.com',
     'PORT': 3306,
@@ -156,7 +165,7 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.9/howto/static-files/
 
-STATIC_ROOT = ''
+# STATIC_ROOT = os.path.join(BASE_DIR, "static/")
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "static")
 ]
@@ -191,14 +200,14 @@ COUNTRY = [
              {"name": "France", "flag": "fr", "currency_rate": 0.96, "currency": "€"}, 
              {"name": "Germany", "flag": "de", "currency_rate": 0.96, "currency": "€"}, 
              {"name": "Italy", "flag": "it", "currency_rate": 0.96, "currency": "€"}, 
-             {"name": "Switzerland", "flag": "sz", "currency_rate": 1.03, "currency": "Fr"}, 
+             {"name": "Switzerland", "flag": "ch", "currency_rate": 1.03, "currency": "Fr"}, 
           ]
 
 CURRENCY = {
              "USD": {"name": "USD", "currency_rate": 1, "currency": "$"},
-             "EUR": {"name": "EUR", "currency_rate": 0.96, "currency": "€"},
-             "GBP": {"name": "GBP", "currency_rate": 0.8, "currency": "£"},
-             "CHF": {"name": "CHF", "currency_rate": 1.03, "currency": "Fr"},
+             "EUR": {"name": "EUR", "currency_rate": 0.94, "currency": "€"},
+             "GBP": {"name": "GBP", "currency_rate": 0.82, "currency": "£"},
+             "CHF": {"name": "CHF", "currency_rate": 1.01, "currency": "Fr"},
           }
 
 

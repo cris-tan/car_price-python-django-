@@ -36,6 +36,7 @@ class Model(models.Model):
     alias = models.CharField(max_length=100)
     min_price = models.IntegerField(default=3500)
     max_price = models.IntegerField(default=4500000)
+    year_interval = models.IntegerField(default=0)
 
     def __unicode__(self):
         return "{} - {} - {}".format(self.make.alias, self.alias, self.name)
@@ -51,3 +52,9 @@ class YearFilter(models.Model):
 
     def __unicode__(self):
         return "{} : {}-{}".format(self.model.alias, self.from_year, self.to_year)
+
+class Block(models.Model):
+    car_id = models.CharField(max_length=50, unique=True)
+    class Meta:
+        db_table = 'Block'
+

@@ -30,3 +30,11 @@ def currency(dollars):
 def getFloat(value):
     return float(value)
 
+@register.filter(name='canonicalUrl')
+def canonicalUrl(value):
+    return value.split("?")[0]
+
+@register.filter(name='postfix')
+def postfix(value, arg):
+    return value + arg
+

@@ -1,0 +1,2 @@
+root/supercar@price
+uwsgi --http :8080 --chdir /home/wolf/car-price/ --wsgi-file /home/wolf/car-price/car_price/wsgi.py

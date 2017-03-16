@@ -6,6 +6,8 @@
 <meta name="description" content="{{ meta_description }}">
 {% endblock %}
 
+{% block canonical_url %}{{request.build_absolute_uri|canonicalUrl}}{% endblock %}
+
 {% block content %}
 <style type="text/css">
     @media (max-width: 1024px) {
@@ -52,17 +54,47 @@
                     <tr>
                         <td> 
                             <a href="{%if car_brand != None %} javascript:;
-                                     {% elif car_name != None %} {% url 'year' car_name=car_name|slugify brand=name|slugify %}
-                                     {% else %} {% url 'brand' car_name=name|slugify %} {% endif %}">{{name}}</a> </td>
+                                     {% elif car_name != None %} /{{car_name|slugify}}-{{name|slugify}}-prices
+                                     {% else %} {% url 'brand' car_name=name|slugify|postfix:'-prices' %} {% endif %}">{{name}}</a> </td>                                     
+                                     <td>                        {{res|dict:name|dict:'UK'|dict:'davg'}}</td>
                         {% for cn in res|dict:name %}
-                        <td> <div style="max-width: 115px;">{% if res|dict:name|dict:cn|dict:'percent' != None %}{{currency.currency}}{%endif%}{{res|dict:name|dict:cn|dict:'davg'|currency}} {% if res|dict:name|dict:cn|dict:'percent' != None %}<span style="float:right;">(<span style="color: {%if res|dict:name|dict:cn|dict:'percent'|getFloat < 0.0 %} red; {%else%} #0ea600; {%endif%}">{{res|dict:name|dict:cn|dict:'percent'}} %</span>)</span>{% endif %}</div></td>
+
+                        <td> <div style="max-width: 115px;">{% if res|dict:name|dict:cn|dict:'percent' != None %}{{currency.currency}}{%endif%}{{res|dict:name|dict:cn|dict:'davg'|currency}} {% if res|dict:name|dict:cn|dict:'percent' != None %}<span style="float:right; display: none;">(<span style="color: {%if res|dict:name|dict:cn|dict:'percent'|getFloat < 0.0 %} red; {%else%} #0ea600; {%endif%}">{{res|dict:name|dict:cn|dict:'percent'|floatformat:2}} %</span>)</span>{% endif %}</div></td>
                         {% endfor %}
                     </tr>
                     {% endfor %}
                 </tbody>
             </table>
+
+            {% for name in res %}
+                <div class = "col-sm-6 col-md-4 col-lg-2" style = "text-align: center">
+                    <div> 
+                        <a href="{%if car_brand != None %} javascript:;
+                                 {% elif car_name != None %} /{{car_name|slugify}}-{{name|slugify}}-prices
+                                 {% else %} {% url 'brand' car_name=name|slugify|postfix:'-prices' %} {% endif %}">{{name}}</a> </div>
+                    {% for cn in res|dict:name %}
+
+                     <div>{% if res|dict:name|dict:cn|dict:'percent' != None %}{{currency.currency}}{%endif%}{{res|dict:name|dict:cn|dict:'davg'|currency}} {% if res|dict:name|dict:cn|dict:'percent' != None %}<span style="float:right; display: none;">(<span style="color: {%if res|dict:name|dict:cn|dict:'percent'|getFloat < 0.0 %} red; {%else%} #0ea600; {%endif%}">{{res|dict:name|dict:cn|dict:'percent'|floatformat:2}} %</span>)</span>{% endif %}</div>
+                    {% endfor %}
+                </div>
+            {% endfor %}
+
+<!--             {% for name in car_brand %}
+                <div class = "col-sm-6 col-md-4 col-lg-2" style = "text-align: center">
+                    <div> 
+                        <a href="{%if car_brand != None %} javascript:;
+                                 {% elif car_name != None %} /{{car_name|slugify}}-{{name|slugify}}-prices
+                                 {% else %} {% url 'brand' car_name=name|slugify|postfix:'-prices' %} {% endif %}">{{name.brand}}</a> </div>
+                    {% for cn in res|dict:name %}
+
+                     <div>{% if res|dict:name|dict:cn|dict:'percent' != None %}{{currency.currency}}{%endif%}{{res|dict:name|dict:cn|dict:'davg'|currency}} {% if res|dict:name|dict:cn|dict:'percent' != None %}<span style="float:right; display: none;">(<span style="color: {%if res|dict:name|dict:cn|dict:'percent'|getFloat < 0.0 %} red; {%else%} #0ea600; {%endif%}">{{res|dict:name|dict:cn|dict:'percent'|floatformat:2}} %</span>)</span>{% endif %}</div>
+                    {% endfor %}
+                </div>
+            {% endfor %} -->
+
         </div>
     </div>
+
 </div>
 
 <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
@@ -76,29 +108,13 @@
 (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
 <div style="height:20px;"></div>
-{% if car_name == None %}
-<div class="row">
-    <div class="col-md-12">
-        <div class="portlet light portlet-fit ">
-            <div class="portlet-title">
-                <div class="caption">
-                    <span style="color: #a01922" class="caption-subject bold">Supercar Prices By Brand</span>
-                </div>
-            </div>
-            <div class="portlet-body">
-                <div id="highchart_1" style="height:500px;"></div>
-            </div>
-        </div>
-    </div>
-</div>
-{% endif %}
 
 <div class="row">
     <div class="col-md-12">
         <div class="portlet light portlet-fit ">
             <div class="portlet-title">
                 <div class="caption">
-                    <span style="color: #a01922" class="caption-subject bold">Supercar Prices By Country</span>
+                    <span style="color: #a01922" class="caption-subject bold">{{car_name|default_if_none:"Supercar"}} {{car_brand|default_if_none:""}} Prices By Country</span>
                 </div>
             </div>
             <div class="portlet-body">
@@ -149,55 +165,9 @@ Highcharts.setOptions({
     }
 });
 
-var colors = ['#00FFFF', '#000000', '#0000FF', '#FF00FF', '#800000', '#00FF00', '#008000', '#808080', '#000080', '#808000', '#800080', '#FF0000', '#FFFF00', '#008080', '#C0C0C0', '#6A2719', '#1F6A19', '#46CFDC', '#6146DC', '#DC46C1'];
+var colors = ['#00FFFF', '#000000', '#0000FF', '#FF00FF', '#800000', '#00FF00', '#008000', '#808080', '#000080', '#808000', '#800080', '#FF0000', '#FFFF00', '#008080', '#C0C0C0', '#6A2719', '#1F6A19', '#46CFDC', '#6146DC', '#DC46C1'];    
 
-$('#highchart_1').highcharts({
-        chart : {
-            style: {
-                fontFamily: 'Open Sans'
-            }
-        },
-        title: {
-            text: '',
-            x: -20 //center
-        },
-        /*subtitle: {
-            text: 'Source: WorldClimate.com',
-            x: -20
-        },*/
-        yAxis: {
-            title: {
-                text: 'Price ({{currency.currency}})'
-            },
-            plotLines: [{
-                value: 0,
-                width: 1,
-                color: '#808080'
-            }]
-        },
-        xAxis: {
-            title: {
-                text: 'Year'
-            },
-        },
-        tooltip: {
-            valueDecimals: 0,
-            valuePrefix: '{{currency.currency}}',
-        },
-        legend: {
-            layout: 'vertical',
-            align: 'right',
-            verticalAlign: 'middle',
-            borderWidth: 0
-        },
-        series: [
-                    {% for data in chartData|dict:0 %}
-                    {name: '{{data|dict:"name"}}', data: {{data|dict:"data"}}, color: colors[{{ forloop.counter0 }}]},
-                    {% endfor %}
-                ]
-    });
-
-    $('#highchart_2').highcharts({
+$('#highchart_2').highcharts({
         chart : {
             style: {
                 fontFamily: 'Open Sans'
