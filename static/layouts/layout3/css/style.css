@@ -1,0 +1,530 @@
+@font-face {
+	font-family:"BebasNeue";
+	src:url(http://cdn.shopify.com/s/files/1/1321/6577/t/2/assets/radikal_medium.eot?%23iefix&4390668956042716689) format("embedded-opentype"),url(http://cdn.shopify.com/s/files/1/1321/6577/t/2/assets/BebasNeue_Bold.otf?4390668956042716689) format("woff"),url(http://cdn.shopify.com/s/files/1/1321/6577/t/2/assets/BebasNeue_Bold.ttf?4390668956042716689) format("truetype")
+}
+@font-face {
+	font-family:"Muli-Regular";
+	src:url(http://cdn.shopify.com/s/files/1/1321/6577/t/2/assets/Muli-Regular.ttf?4390668956042716689) format("truetype");
+}
+@font-face {
+	font-family: "Exo Regular";
+	src: url(../fonts/Exo2-Regular.otf) format("opentype"), url(../fonts/Exo-Regular.ttf) format("truetype"),url(../fonts/Exo-Regular.eot) format("embedded-opentype");
+    font-weight: 400;
+}
+@font-face {
+	font-family: "Exo SemiBold";
+	src: url(../fonts/Exo2-SemiBold.otf) format("opentype"), url(../fonts/Exo-SemiBold.otf) format("woff");
+}
+
+
+
+/* Necesar */
+body {
+    background: #EFF3F8 !important;
+}
+li {
+    list-style-type: none;
+}
+img {
+    border: 0;
+    max-width: 100%;
+    height: auto;
+    width: auto;
+}
+.gas_title_page_global {
+    text-transform: capitalize !important;
+}
+.gas_align_center {
+    display: -webkit-box; display: -moz-box; display: -ms-flexbox;display: -webkit-flex;display: flex; 
+    -webkit-box-pack: center; -moz-box-pack: center; -ms-flex-pack: center; -webkit-justify-content: center; justify-content: center;  
+    -webkit-box-align: center; -moz-box-align: center; -ms-flex-align: center; -webkit-align-items: center; align-items: center;  
+    margin: auto;
+}
+.gas_align_center .col-md-10,
+.gas_align_center .col-md-2 {
+    margin: 0px;
+    padding: 0px;
+}
+.brm_header_menu {
+    background: #000000;
+}
+
+}
+/* ====================================== */
+/* ====================================== */
+/* ---------------Site Map--------------- */
+/* ====================================== */
+/* ====================================== */
+.site_map_page {
+    margin: 50px auto;
+}
+.site_map_page .gas_title_product h1 {
+    font-family: Exo Semibold;
+    color: #fff;
+    margin: 25px 0;
+    text-transform: uppercase;
+    font-size: 30px;
+}
+.site_map_page .site_map_page_content .grid-item {
+    width: 25%;
+    padding: 10px;
+}
+
+.site_map_page .site_map_page_content .site_map_page_grid a {
+    font-size: 20px;
+    font-family: Exo SemiBold;
+    color: #fff;
+    margin-bottom: 15px;
+    display: block;
+    background-color: #12191C;
+    padding: 25px;
+    text-transform: inherit;
+}
+.site_map_page .site_map_page_content .site_map_page_grid:hover a {
+    background-color: #8c000d;
+    transition-duration: 0.35s;
+}
+.site_map_page .site_map_page_content .site_map_page_grid ul li {
+    list-style-type: disc;
+    color: #a2a2a2;
+    padding-left: 10px;
+}
+.site_map_page .site_map_page_content .site_map_page_grid ul li a {
+    font-size: 14px;
+    font-family: Exo Regular;
+    color: #12191c;
+    padding: 0;
+    background-color: transparent;
+    margin-bottom: 0;
+    transition-duration: 0s !important;
+    text-transform: inherit;
+}
+.site_map_page .site_map_page_content .site_map_page_grid ul li a:hover {
+    color: #8c000d;
+    transition-duration: 0s !important;
+}
+.site_map_page .site_map_page_content .site_map_page_grid:hover ul li a {
+    background-color: transparent;
+}
+.site_map_page .site_map_page_content .site_map_page_grid {
+    background-color: #fff;
+    margin: 0;
+    position: relative;
+    transition-duration: 0.35s;
+    border: 2px solid #d7d7d7;
+    border-radius: 5px;
+}
+.site_map_page .site_map_page_content .site_map_page_grid:hover {
+    margin-top: -10px;
+    transition-duration: 0.35s;
+    box-shadow: 0 0 15px #dadada;
+}
+/* ====================================== */
+/* ====================================== */
+/* ---------TERMS AND CONDITION---------- */
+/* ====================================== */
+/* ====================================== */
+.terms_and_condition_page {
+    margin: 50px auto;
+}
+.terms_and_condition_page .gas_title_terms_and_condition_page h1 {
+    font-family: Exo Semibold;
+    color: #fff;
+    margin: 25px 0;
+    text-transform: uppercase;
+    font-size: 30px;
+}
+.terms_and_condition_page .gas_title_terms_and_condition_page p {
+    font-family: Exo Regular;
+    color: #fff;
+    margin: 0;
+    font-size: 16px;
+}
+.terms_and_condition_page .gas_title_terms_and_condition_page h2 {
+    font-family: Exo Semibold;
+    color: #fff;
+    margin: 25px 0;
+    text-transform: uppercase;
+    font-size: 25px;
+    background-color: #12191C;
+    padding: 15px;
+}
+.terms_and_condition_page .gas_title_terms_and_condition_page ul li {
+    list-style-type: disc;
+    color: #dadada;
+    padding-left: 15px;
+}
+.terms_and_condition_page .gas_title_terms_and_condition_page ul li ul li {
+    color: #dadada;
+    padding-left: 15px;
+    position: relative;
+    list-style-type: none;
+}
+.terms_and_condition_page .gas_title_terms_and_condition_page ul li ul li::before {
+    content: "➤";
+    display: block;
+    height: 0;
+    width: 0;
+    left: -15px;
+    position: absolute;
+    z-index: 1;
+    top: 5px;
+}
+/* ====================================== */
+/* ====================================== */
+/* ---------------BUY CAR---------------- */
+/* ====================================== */
+/* ====================================== */
+.buy_car_page .buy_car_page_content {
+    width: 100%;
+    background-image: url('../images/buy_car_background.jpg');
+    background-position: center center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: auto;
+    position: relative;
+    padding: 50px;
+    display: inline-block;
+    margin: 50px 0;
+}
+.buy_car_page p {
+    font-size: 16px;
+    font-family: Exo Regular;
+    color: #dadada;
+    margin-bottom: 25px;
+}
+.buy_car_page .buy_car_page_content h1 {
+    font-size: 60px;
+    font-family: Exo SemiBold;
+    color: #fff;
+    text-transform: uppercase;
+    float: left;
+}
+.buy_car_page .buy_car_page_content form {
+    width: 90%;
+    background-color: rgba(255,255,255,0.5);
+    display: inline-block;
+    float: right;
+    padding: 25px;
+}
+.buy_car_page .buy_car_page_content form div {
+    margin: 5px 0;
+}
+.buy_car_page .buy_car_page_content form select {
+    width: 100%;
+    height: 50px;
+    padding-left: 25px;
+    color: #dadada;
+    border: 1px solid #4e4e4f;
+    font-size: 18px;
+    background-image: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    font-family: Muli-Regular;
+    background: rgba(32,43,47, 0.95) url('../images/dealers_inventory_select.png') no-repeat 100% 0%;
+    cursor: pointer;
+}
+.buy_car_page .buy_car_page_content form select option {
+    border: none;
+    height: auto;
+    padding: 10px;
+    font-size: 16px;
+    color: #fff;
+    background-color: transparent;
+    border-bottom: 1px solid #aaa;
+    border-right: 2px solid #ccc;
+}
+
+/* Send Message */
+.buy_car_page .buy_car_page_content form input {
+    padding: 10px 20px;
+    font-family: Exo SemiBold;
+    text-transform: uppercase;
+    color: #fff;
+    background-color: #8c000d;
+    border: none;
+    font-size: 16px;
+    margin: 15px 0;
+    cursor: pointer;
+    box-shadow: 0 4px #350f12;
+}
+.buy_car_page .buy_car_page_content form input:hover {
+    box-shadow: 0 2px #350f12;
+    transition-duration: 0.1s;
+    margin: 17px 0 13px 0;
+}
+.buy_car_page .buy_car_page_content form input:focus {
+    box-shadow: 0 0 #350f12;
+    transition-duration: 0.1s;
+    margin: 19px 0 11px 0;
+}
+/* ====================================== */
+/* ====================================== */
+/* DEALERS NETWORK CAR */
+/* ====================================== */
+/* ====================================== */
+.gas_network_dealers_page {
+    overflow: hidden;
+}
+.gas_network_dealers_page .gas_network_dealers_page_top h1 {
+    font-size: 25px;
+    font-family: Exo Semibold;
+    color: #dadada;
+    text-align: center;
+    margin-top: 100px;
+}
+.gas_network_dealers_page .gas_network_dealers_page_top p {
+    width: 80%;
+    margin: 25px auto;
+    font-size: 18px;
+    text-align: center;
+    font-family: Exo Regular;
+    color: #dadada;
+}
+
+.gas_network_dealers_page .gas_network_dealers_page_details {
+    padding: 50px 0;
+    margin: 25px 0;
+    position: relative;
+    background: #8c000d;
+    background: -moz-linear-gradient(left, #8c000d 1%, #8c000d 85%, transparent 86%, transparent 100%);
+    background: -webkit-gradient(linear, left top, right top, color-stop(1%, #8c000d), color-stop(85%, #8c000d), color-stop(86%, transparent), color-stop(100%, transparent));
+    background: -webkit-linear-gradient(left, #8c000d 1%, #8c000d 85%, transparent 86%, transparent 100%);
+    background: -o-linear-gradient(left, #8c000d 1%, #8c000d 85%, transparent 86%, transparent 100%);
+    background: -ms-linear-gradient(left, #8c000d 1%, #8c000d 85%, transparent 86%, transparent 100%);
+    background: linear-gradient(to right, #8c000d 1%, #8c000d 85%, transparent 86%, transparent 100%);
+}
+.gas_network_dealers_page .gas_network_dealers_page_details h1 {
+    font-family: BebasNeue;
+    font-size: 22px;
+    color: #fff;
+    text-align: center;
+}
+.gas_network_dealers_page .gas_network_dealers_page_details p {
+    text-align: center;
+    color: #fff;
+    font-family: Exo Regular;
+    font-size: 14px;
+}
+.gas_network_dealers_page .gas_network_dealers_page_details .col-md-20 {
+    position: relative;
+    z-index: 1;
+    min-height: 1px;
+    padding-right: 3px;
+    padding-left: 3px;
+    float: left;
+    width: 20%;
+}
+.gas_network_dealers_page .gas_network_dealers_page_details .gas_network_dealers_page_details_image {
+    position: absolute;
+    top: 50%;
+    right: -12.5%;
+    width: auto;
+    height: 25vw;
+    z-index: 0;
+    transform: translate(0%, -50%);
+}
+.gas_network_dealers_page .gas_network_dealers_page_details .gas_network_dealers_page_details_image img {
+    max-height: 100%;
+    max-width: none;
+}
+
+.gas_network_dealers_page_middle .col-md-6:nth-child(1) div {
+    padding: 35px;
+    background-color: #12191C;
+    width: 90%;
+    margin: auto;
+    display: -webkit-box; display: -moz-box; display: -ms-flexbox;display: -webkit-flex;display: flex;
+    -webkit-box-pack: center; -moz-box-pack: center; -ms-flex-pack: center; -webkit-justify-content: center; justify-content: center;
+    -webkit-box-align: center; -moz-box-align: center; -ms-flex-align: center; -webkit-align-items: center; align-items: center;
+    -webkit-box-orient: horizontal; -moz-box-orient: horizontal; -ms-flex-direction: column; -webkit-flex-direction: column; flex-direction: column;
+    height: 300px;
+}
+.gas_network_dealers_page_middle .col-md-6:nth-child(1) div h1 {
+    font-size: 20px;
+    font-family: Exo Semibold;
+    text-transform: uppercase;
+    color: #dadada;
+    text-align: center;
+    padding-bottom: 25px;
+}
+.gas_network_dealers_page_middle .col-md-6:nth-child(1) div p {
+    font-size: 14px;
+    font-family: Exo Regular;
+    text-align: center;
+    color: #dadada;
+}
+
+.gas_network_dealers_page_middle .col-md-6:nth-child(2) {
+    display: -webkit-box; display: -moz-box; display: -ms-flexbox;display: -webkit-flex;display: flex;
+    -webkit-box-pack: center; -moz-box-pack: center; -ms-flex-pack: center; -webkit-justify-content: center; justify-content: center;
+    -webkit-box-align: center; -moz-box-align: center; -ms-flex-align: center; -webkit-align-items: center; align-items: center;
+    -webkit-box-orient: horizontal; -moz-box-orient: horizontal; -ms-flex-direction: column; -webkit-flex-direction: column; flex-direction: column;
+    height: 300px;
+}
+.gas_network_dealers_page_middle .col-md-6:nth-child(2) div div {
+    display: -webkit-box; display: -moz-box; display: -ms-flexbox;display: -webkit-flex;display: flex;
+    -webkit-box-pack: justify; -moz-box-pack: justify; -ms-flex-pack: justify; -webkit-justify-content: space-between; justify-content: space-between;
+    -webkit-box-align: center; -moz-box-align: center; -ms-flex-align: center; -webkit-align-items: center; align-items: center;
+    -webkit-box-orient: vertical; -moz-box-orient: vertical; -ms-flex-direction: row; -webkit-flex-direction: row; flex-direction: row;
+    height: 100px;
+}
+.gas_network_dealers_page_middle .col-md-6:nth-child(2) div div img {
+    max-width: 50px;
+}
+.gas_network_dealers_page_middle .col-md-6:nth-child(2) div div span {
+    font-size: 14px;
+    font-family: Exo Regular;
+    color: #dadada;
+    padding: 10px 25px 10px 10px;
+    text-align: left;
+}
+
+.gas_network_dealers_page .gas_network_dealers_page_bottom h1 {
+    font-size: 25px;
+    font-family: Exo Semibold;
+    color: #dadada;
+    text-align: center;
+    margin-top: 100px;
+    text-transform: uppercase;
+}
+.gas_network_dealers_page .gas_network_dealers_page_bottom p {
+    width: 80%;
+    margin: 25px auto;
+    font-size: 14px;
+    text-align: center;
+    font-family: Exo Regular;
+    color: #dadada;
+}
+.gas_network_dealers_page .gas_network_dealers_page_bottom .col-md-6 input {
+    width: 80%;
+    height: 50px;
+    line-height: 50px;
+    color: #fff;
+    text-align: center;
+    background-color: transparent;
+    border: none;
+    border-bottom: 1px solid #333;
+    margin: 15px 10%;
+    font-size: 18px;
+    font-family: Exo Semibold;
+}
+.gas_network_dealers_page .gas_network_dealers_page_bottom .col-md-12 input {
+    width: 50%;
+    margin: 30px 25% 34px 25%;
+    line-height: 50px;
+    height: 50px;
+    border: none;
+    background-color: #8c000d;
+    color: #dadada;
+    font-family: Exo Semibold;
+    text-transform: uppercase;
+    font-size: 30px;
+    box-shadow: 0 4px #8c000d;
+}
+/* ====================================== */
+/* ====================================== */
+/* ---------RESPONSIVE AD SENSE---------- */
+/* ====================================== */
+/* ====================================== */
+.gas_contact_map_page .lg-map-wrapper .lg-map-text {
+    overflow: visible;
+}
+.gas_ads_sense_middle {
+    width: 728px;
+    height: 90px;
+}
+/* Popup */
+@media (max-width: 500px) {
+    .gas_product_details_sell .col-md-3:last-child {
+        width: 100%;
+        height: auto;
+        margin-bottom: 50px;
+        display: -webkit-box; display: -moz-box; display: -ms-flexbox;display: -webkit-flex;display: flex;  
+        -webkit-box-pack: center; -moz-box-pack: center; -ms-flex-pack: center; -webkit-justify-content: center; justify-content: center;  
+        -webkit-box-align: center; -moz-box-align: center; -ms-flex-align: center; -webkit-align-items: center; align-items: center;  
+    }
+    gas_product_details_sell .gas_product_page_popup {
+        width: 100%;
+        max-height: 250px;
+    }
+}
+@media (min-width: 500px) { 
+    .gas_product_details_sell .col-md-3:last-child {
+        height: auto;
+        margin-bottom: 50px;
+        display: -webkit-box; display: -moz-box; display: -ms-flexbox;display: -webkit-flex;display: flex;  
+        -webkit-box-pack: center; -moz-box-pack: center; -ms-flex-pack: center; -webkit-justify-content: center; justify-content: center;  
+        -webkit-box-align: center; -moz-box-align: center; -ms-flex-align: center; -webkit-align-items: center; align-items: center;  
+    }
+    gas_product_details_sell .gas_product_page_popup {
+        width: 100%;
+        max-height: 280px;
+    } 
+    gas_product_details_sell .gas_product_page_popup img {
+        max-height: 280px;
+    }
+}
+@media (min-width: 800px) { 
+    gas_product_details_sell .gas_product_page_popup {
+        width: 100%;
+        max-height: 300px;
+    } 
+}
+@media (max-width: 991px) {
+    .gas_product_page_popup {
+        display: inline-block;
+        margin: 25px 10px;
+    }
+    .gas_product_details_sell_details_content {
+        margin-bottom: 50px;
+    }
+    
+}
+
+.col-lg-1, .col-lg-10, .col-lg-11, .col-lg-12, .col-lg-2, .col-lg-3, .col-lg-4, .col-lg-5, .col-lg-6, .col-lg-7, .col-lg-8, .col-lg-9, .col-md-1, .col-md-10, .col-md-11, .col-md-12, .col-md-2, .col-md-3, .col-md-4, .col-md-5, .col-md-6, .col-md-7, .col-md-8, .col-md-9, .col-sm-1, .col-sm-10, .col-sm-11, .col-sm-12, .col-sm-2, .col-sm-3, .col-sm-4, .col-sm-5, .col-sm-6, .col-sm-7, .col-sm-8, .col-sm-9, .col-xs-1, .col-xs-10, .col-xs-11, .col-xs-12, .col-xs-2, .col-xs-3, .col-xs-4, .col-xs-5, .col-xs-6, .col-xs-7, .col-xs-8, .col-xs-9 {
+    position: relative;
+    min-height: 1px;
+    padding-right: 3px;
+    padding-left: 3px;
+}
+
+/* NEW */
+.gas_section_2_2_ads {
+    width: 100%;
+    max-height: 100px;
+    display: -webkit-box; display: -moz-box; display: -ms-flexbox;display: -webkit-flex;display: flex;
+    -webkit-box-pack: center; -moz-box-pack: center; -ms-flex-pack: center; -webkit-justify-content: center; justify-content: center;
+    -webkit-box-align: center; -moz-box-align: center; -ms-flex-align: center; -webkit-align-items: center; align-items: center;
+    margin-top: 50px;
+}
+.title_private_product_page_details {
+    font-family: Exo SemiBold;
+    color: #fff;
+    margin: 0;
+    font-size: 20px;
+    padding: 15px 0;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
