@@ -89,7 +89,7 @@
                                 <ul>  
                                     {% for cn in res|dict:name|dict:"brand" %}                    
                                         <li>
-                                             <a href="{{name|slugify}}-{{cn.brand|slugify}}-prices">{{cn.brand}} Prices</a>
+                                             <a href="{{name|slugify}}-{{cn.brand|slugify}}-prices" style = "font-weight: bold;">{{name}} {{cn.brand}} Prices</a>
                                         </li>        
                                     {% endfor %}
                                 </ul>
