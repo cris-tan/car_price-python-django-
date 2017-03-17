@@ -89,7 +89,7 @@
                                 <ul>  
                                     {% for cn in res|dict:name|dict:"brand" %}                    
                                         <li>
-                                             <a href="{{name|slugify}}-{{cn.brand|slugify}}-prices" style = "font-weight: bold;">{{name}} {{cn.brand}} Prices</a>
+                                             <a href="{{name|slugify}}-{{cn.brand|slugify}}-prices" style = "font-weight: bold;">{{cn.brand}} Prices</a>
                                         </li>        
                                     {% endfor %}
                                 </ul>
@@ -112,7 +112,8 @@
 (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
 <div style="height:20px;"></div>
-<!-- 
+
+{% if car_name != None or car_brand != None %}                                
 <div class="row">
     <div class="col-md-12">
         <div class="portlet light portlet-fit ">
@@ -126,7 +127,8 @@
             </div>
         </div>
     </div>
-</div> -->
+</div>
+{% endif %}
 
 <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
 <!-- S/R Responsive Bottom -->
