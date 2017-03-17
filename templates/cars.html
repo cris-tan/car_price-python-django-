@@ -73,7 +73,7 @@
         </div>
     {% endif %}
 
-    <div class="container site_map_page">
+    <div class="site_map_page">
         <div class="col-md-12">
             <div class="gas_title_product">        
             </div>   
@@ -100,20 +100,20 @@
         </div>    
     </div>                
 </div>
-
+{% if car_name != None or car_brand != None %}  
 <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
 <!-- S/R Responsive Middle -->
-<!-- <ins class="adsbygoogle"
+<ins class="adsbygoogle"
      style="display:block"
      data-ad-client="ca-pub-7284757916411254"
      data-ad-slot="9353452560"
-     data-ad-format="auto"></ins> -->
+     data-ad-format="auto"></ins>
 <script>
 (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
 <div style="height:20px;"></div>
 
-{% if car_name != None or car_brand != None %}                                
+                              
 <div class="row">
     <div class="col-md-12">
         <div class="portlet light portlet-fit ">
@@ -128,19 +128,19 @@
         </div>
     </div>
 </div>
-{% endif %}
+
 
 <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
 <!-- S/R Responsive Bottom -->
-<!-- <ins class="adsbygoogle"
+<ins class="adsbygoogle"
      style="display:block"
      data-ad-client="ca-pub-7284757916411254"
      data-ad-slot="2748515763"
-     data-ad-format="auto"></ins> -->
+     data-ad-format="auto"></ins>
 <script>
 (adsbygoogle = window.adsbygoogle || []).push({});
 </script>     
-
+{% endif %}
 {% endblock %}
 
 {% block extra_js %}

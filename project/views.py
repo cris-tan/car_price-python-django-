@@ -42,7 +42,7 @@ def main(request):
                                      .annotate(davg=Avg('price'))
 
         car_per_brand = Car.objects.filter(name=name["name"]).exclude(price=0) \
-                                     .values('brand').distinct()                                   
+                                     .values('brand').distinct().order_by("brand")                                   
         
         '''prev_car_per_country = Car.objects.filter(name=name["name"]).exclude(prev_price=0) \
                                      .values('country') \
