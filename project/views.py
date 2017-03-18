@@ -112,7 +112,7 @@ def req_brand(request, car_name):
 
             make = Make.objects.filter(name=getNameFromSlug(car_name, "name")).first()
             model = make.model_set.filter(name=getNameFromSlug(brand_name, "brand")).first()
-            price = model.price_set.all()
+            price = model.price_set.all().order_by('year')
             if res["type"] == "redirect":
                 return HttpResponsePermanentRedirect(res["value"])
             elif res["type"] == "404":
@@ -166,7 +166,7 @@ def req_brand(request, car_name):
             usa_h_price=Avg('usa_high_price'),
             uk_l_price=Avg('uk_low_price'),
             uk_a_price=Avg('uk_avg_price'),
-            uk_h_price=Avg('uk_high_price'))
+            uk_h_price=Avg('uk_high_price')).order_by('year')
 
         temp_data = OrderedDict()
         temp_data["USA"], temp_data["UK"], temp_data["France"], temp_data["Germany"], temp_data["Italy"], temp_data["Switzerland"], = None, None, None, None,None, None        
@@ -186,7 +186,7 @@ def req_brand(request, car_name):
         #                                       "percent": percent}
 
         # print price
-        if price.count() > 1:
+        if price.count() > 0:
             print price[0]
             res[brand["brand"]] = [price[0]]
 
@@ -326,7 +326,7 @@ def getChartData(param, currency_rate, type=None):
     
         for name in tp_chartData:
             data = sorted(tp_chartData[name], key=getKey)
-            chartData.append({"name": name, "data": data})
+            chartData.append({"name": name, "data": data})            
 
 
     if "car_brand" in param:
@@ -358,6 +358,7 @@ def getChartData(param, currency_rate, type=None):
         data = sorted(tp_chartDataForCountry[name], key=getKey)
         chartDataForCountry.append({"name": name, "data": data})
 
+    print chartDataForCountry
     return [chartData, chartDataForCountry, years]
 
 

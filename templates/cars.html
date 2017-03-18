@@ -92,7 +92,7 @@
                 </style>
 
                 <div class = "price_header">
-                    <div class = "text-left price-year">Year</div>                
+                    <div class = "text-left price-year">{% if car_brand == None %}Model{% else %}Year{% endif %}</div>                
                     <div class = "text-center price-item"><span class="flag flag-us" style="position: relative; top: 3px;"></span> <span style="margin-left: 5px;">USA</span></div>
                     <div class = "text-center price-item"><span class="flag flag-gb" style="position: relative; top: 3px;"></span> <span style="margin-left: 5px;">UK</span></div>
                 </div>
@@ -100,19 +100,19 @@
                     <div class = "text-left price-year"></div>                
                     <div class = "price-item">
                         <div class="custom-hidden" style="margin-left: 5px;">
-                            <span>Low Price</span>
+                            <span>Low</span>
                         </div>
                         <div style="margin-left: 5px;">
-                            <span>Average Price</span>
+                            <span>Average</span>
                         </div>
                         <div class="custom-hidden" style="margin-left: 5px;">
-                            <span>High Price</span>
+                            <span>High</span>
                         </div>
                     </div>
                     <div class = "price-item" >
-                        <span class="custom-hidden" style="margin-left: 5px;">Low Price</span>
-                        <span style="margin-left: 5px;">Average Price</span>
-                        <span class="custom-hidden" style="margin-left: 5px;">High Price</span>
+                        <span class="custom-hidden" style="margin-left: 5px;">Low</span>
+                        <span style="margin-left: 5px;">Average</span>
+                        <span class="custom-hidden" style="margin-left: 5px;">High</span>
                     </div>
                 </div>
                 {% if prices %}
@@ -121,54 +121,56 @@
                             <div class = "text-left price-year"><a>{{item.year}}</a></div>                
                             <div class = "price-item">
                                 <div class="custom-hidden" style="margin-left: 5px;">
-                                    <span>{{item.usa_low_price|intcomma}}{{currency.currency}}</span>
+                                    <span>{{item.usa_low_price|floatformat:"0"|intcomma}}$</span>
                                 </div>
                                 <div style="margin-left: 5px;">
-                                    <span>{{item.usa_avg_price|intcomma}}{{currency.currency}}</span>
+                                    <span>{{item.usa_avg_price|floatformat:"0"|intcomma}}$</span>
                                 </div>
                                 <div class="custom-hidden" style="margin-left: 5px;">
-                                    <span>{{item.usa_high_price|intcomma}}{{currency.currency}}</span>
+                                    <span>{{item.usa_high_price|floatformat:"0"|intcomma}}$</span>
                                 </div>
                             </div>
                             <div class = "price-item" >
                                 <div class="custom-hidden" style="margin-left: 5px;">
-                                    <span>{{item.uk_low_price|intcomma}}{{currency.currency}}</span>
+                                    <span>{{item.uk_low_price|floatformat:"0"|intcomma}}€</span>
                                 </div>
                                 <div style="margin-left: 5px;">
-                                    <span>{{item.uk_avg_price|intcomma}}{{currency.currency}}</span>
+                                    <span>{{item.uk_avg_price|floatformat:"0"|intcomma}}€</span>
                                 </div>
                                 <div class="custom-hidden" style="margin-left: 5px;">
-                                    <span>{{item.uk_high_price|intcomma}}{{currency.currency}}</span>
+                                    <span>{{item.uk_high_price|floatformat:"0"|intcomma}}€</span>
                                 </div>                            
                             </div>
                         </div>
                     {% endfor %}
-                {% endif %}
+                {% endif %}                
                 {% if car_brand == None %}
                     {% for name in res %}
                         <div class = "price_list">
-                            <div class = "text-left price-year"><a>{{name}}</a></div>                
+                            <div class = "text-left price-year"><a href="{%if car_brand != None %} javascript:;
+                                     {% elif car_name != None %} /{{car_name|slugify}}-{{name|slugify}}-prices
+                                     {% else %} {% url 'brand' car_name=name|slugify|postfix:'-prices' %} {% endif %}">{{name}}</a></div>                
                             {% for cn in res|dict:name %}                          
                                 <div class = "price-item">
                                     <div class="custom-hidden" style="margin-left: 5px;">
-                                        <span>{{cn.usa_l_price|intcomma}}{{currency.currency}}</span>
+                                        <span>{{cn.usa_l_price|floatformat:"0"|intcomma}}$</span>
                                     </div>
                                     <div style="margin-left: 5px;">
-                                        <span>{{cn.usa_a_price|intcomma}}{{currency.currency}}</span>
+                                        <span>{{cn.usa_a_price|floatformat:"0"|intcomma}}$</span>
                                     </div>
                                     <div class="custom-hidden" style="margin-left: 5px;">
-                                        <span>{{cn.usa_h_price|intcomma}}{{currency.currency}}</span>
+                                        <span>{{cn.usa_h_price|floatformat:"0"|intcomma}}$</span>
                                     </div>
                                 </div>
                                 <div class = "price-item" >
                                     <div class="custom-hidden" style="margin-left: 5px;">
-                                        <span>{{cn.uk_l_price|intcomma}}{{currency.currency}}</span>
+                                        <span>{{cn.uk_l_price|floatformat:"0"|intcomma}}€</span>
                                     </div>
                                     <div style="margin-left: 5px;">
-                                        <span>{{cn.uk_a_price|intcomma}}{{currency.currency}}</span>
+                                        <span>{{cn.uk_a_price|floatformat:"0"|intcomma}}€</span>
                                     </div>
                                     <div class="custom-hidden" style="margin-left: 5px;">
-                                        <span>{{cn.uk_h_price|intcomma}}{{currency.currency}}</span>
+                                        <span>{{cn.uk_h_price|floatformat:"0"|intcomma}}€</span>
                                     </div>                            
                                 </div>
                             {% endfor %}
