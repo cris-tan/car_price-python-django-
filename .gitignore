@@ -78,4 +78,3 @@ node_modules
 
 local_settings.py
 venv
-migrations
