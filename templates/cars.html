@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 {% load static %}
 {% load custom_tag %}
+{% load humanize %}
 
 {% block meta_description %}
 <meta name="description" content="{{ meta_description }}">
@@ -38,7 +39,7 @@
      
 <!-- BEGIN SAMPLE TABLE PORTLET-->
 <div class="portlet box" style="border-color: #a01922; margin-top: 20px;">
-    
+
     {% if car_name != None or car_brand != None %}                                
 
         <div class="portlet-title" style="background-color: #a01922">
@@ -48,36 +49,137 @@
         
         <div class="portlet-body">
             <div class="table-scrollable">
-                <table class="table" style="table-layout: fixed;">
-                    <thead>
-                        <tr>
-                            <th class="car-price-td"></th>
-                            {% for ct in country_label %}
-                            <th class="car-price-td"><span class="flag flag-{{ct.flag}}" style="position: relative; top: 3px;"></span> <span style="margin-left: 5px;">{{ct.name}}</span> </th>
-                            {% endfor %}
-                        </tr>
-                    </thead>
-                    <tbody> 
-                        {% for name in res %}                    
-                        <tr>
-                            <td> 
-                                <a href="{%if car_brand != None %} javascript:;
-                                         {% elif car_name != None %} /{{car_name|slugify}}-{{name|slugify}}-prices
-                                         {% else %} {% url 'brand' car_name=name|slugify|postfix:'-prices' %} {% endif %}">{{name}}</a> </td>
-                            {% for cn in res|dict:name %}
 
-                            <td> <div style="max-width: 115px;">{% if res|dict:name|dict:cn|dict:'percent' != None %}{{currency.currency}}{%endif%}{{res|dict:name|dict:cn|dict:'davg'|currency}} {% if res|dict:name|dict:cn|dict:'percent' != None %}<span style="float:right; display: none;">(<span style="color: {%if res|dict:name|dict:cn|dict:'percent'|getFloat < 0.0 %} red; {%else%} #0ea600; {%endif%}">{{res|dict:name|dict:cn|dict:'percent'|floatformat:2}} %</span>)</span>{% endif %}</div></td>
-                            {% endfor %}
-                        </tr>
-                        {% endfor %}
-                    </tbody>
-                </table>
+                
+                <style>
+                    .price_list, .price_header {
+                        display: flex;
+                        border-bottom: 2px solid #EEEEEE;
+                        padding: 5px 0;
+                    }
 
+                    .price-year {                        
+                        width: 7.66667%;
+                        margin-left: 10px;
+                    }
+
+                    .price_header .price-item {
+                        width: 45.66667%;                        
+                    }
+
+                    .price_header {
+                        font-weight: bold;
+                    }
+
+                    .price_list .price-item {
+                        width: 43.66667%;
+                        /*display: flex;*/
+                        display: table;
+                        justify-content: space-around;
+                    }
+
+                    .price_list .price-item > * {
+                        display: table-cell;
+                        text-align: center;
+                        width: 15%;
+                    }
+
+                    @media (max-width: 670px) {
+                        .custom-hidden {
+                            display: none!important;
+                        }
+                    }
+                </style>
+
+                <div class = "price_header">
+                    <div class = "text-left price-year">Year</div>                
+                    <div class = "text-center price-item"><span class="flag flag-us" style="position: relative; top: 3px;"></span> <span style="margin-left: 5px;">USA</span></div>
+                    <div class = "text-center price-item"><span class="flag flag-gb" style="position: relative; top: 3px;"></span> <span style="margin-left: 5px;">UK</span></div>
+                </div>
+                <div class = "price_list" style = "font-weight: bold;">
+                    <div class = "text-left price-year"></div>                
+                    <div class = "price-item">
+                        <div class="custom-hidden" style="margin-left: 5px;">
+                            <span>Low Price</span>
+                        </div>
+                        <div style="margin-left: 5px;">
+                            <span>Average Price</span>
+                        </div>
+                        <div class="custom-hidden" style="margin-left: 5px;">
+                            <span>High Price</span>
+                        </div>
+                    </div>
+                    <div class = "price-item" >
+                        <span class="custom-hidden" style="margin-left: 5px;">Low Price</span>
+                        <span style="margin-left: 5px;">Average Price</span>
+                        <span class="custom-hidden" style="margin-left: 5px;">High Price</span>
+                    </div>
+                </div>
+                {% if prices %}
+                    {% for item in prices %}
+                        <div class = "price_list">
+                            <div class = "text-left price-year"><a>{{item.year}}</a></div>                
+                            <div class = "price-item">
+                                <div class="custom-hidden" style="margin-left: 5px;">
+                                    <span>{{item.usa_low_price|intcomma}}{{currency.currency}}</span>
+                                </div>
+                                <div style="margin-left: 5px;">
+                                    <span>{{item.usa_avg_price|intcomma}}{{currency.currency}}</span>
+                                </div>
+                                <div class="custom-hidden" style="margin-left: 5px;">
+                                    <span>{{item.usa_high_price|intcomma}}{{currency.currency}}</span>
+                                </div>
+                            </div>
+                            <div class = "price-item" >
+                                <div class="custom-hidden" style="margin-left: 5px;">
+                                    <span>{{item.uk_low_price|intcomma}}{{currency.currency}}</span>
+                                </div>
+                                <div style="margin-left: 5px;">
+                                    <span>{{item.uk_avg_price|intcomma}}{{currency.currency}}</span>
+                                </div>
+                                <div class="custom-hidden" style="margin-left: 5px;">
+                                    <span>{{item.uk_high_price|intcomma}}{{currency.currency}}</span>
+                                </div>                            
+                            </div>
+                        </div>
+                    {% endfor %}
+                {% endif %}
+                {% if car_brand == None %}
+                    {% for name in res %}
+                        <div class = "price_list">
+                            <div class = "text-left price-year"><a>{{name}}</a></div>                
+                            {% for cn in res|dict:name %}                          
+                                <div class = "price-item">
+                                    <div class="custom-hidden" style="margin-left: 5px;">
+                                        <span>{{cn.usa_l_price|intcomma}}{{currency.currency}}</span>
+                                    </div>
+                                    <div style="margin-left: 5px;">
+                                        <span>{{cn.usa_a_price|intcomma}}{{currency.currency}}</span>
+                                    </div>
+                                    <div class="custom-hidden" style="margin-left: 5px;">
+                                        <span>{{cn.usa_h_price|intcomma}}{{currency.currency}}</span>
+                                    </div>
+                                </div>
+                                <div class = "price-item" >
+                                    <div class="custom-hidden" style="margin-left: 5px;">
+                                        <span>{{cn.uk_l_price|intcomma}}{{currency.currency}}</span>
+                                    </div>
+                                    <div style="margin-left: 5px;">
+                                        <span>{{cn.uk_a_price|intcomma}}{{currency.currency}}</span>
+                                    </div>
+                                    <div class="custom-hidden" style="margin-left: 5px;">
+                                        <span>{{cn.uk_h_price|intcomma}}{{currency.currency}}</span>
+                                    </div>                            
+                                </div>
+                            {% endfor %}
+                        </div>
+                    {% endfor %}
+                {% endif %}
             </div>
         </div>
     {% endif %}
 
-    <div class="site_map_page">
+    <div class="site_map_page" style = "width: 1170px; margin-left: -13px;">
         <div class="col-md-12">
             <div class="gas_title_product">        
             </div>   

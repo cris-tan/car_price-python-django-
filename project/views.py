@@ -80,7 +80,6 @@ def main(request):
 
 def req_brand(request, car_name):
 
-    print request.path
     redirects = Redirect.objects.all()
     for redirect_obj in redirects:
         if redirect_obj.old_path == request.path:
@@ -111,12 +110,21 @@ def req_brand(request, car_name):
             print temp_name, alias, brand_name
             res = req_year(currency, car_name, brand_name)
 
+            make = Make.objects.filter(name=getNameFromSlug(car_name, "name")).first()
+            model = make.model_set.filter(name=getNameFromSlug(brand_name, "brand")).first()
+            price = model.price_set.all()
             if res["type"] == "redirect":
                 return HttpResponsePermanentRedirect(res["value"])
             elif res["type"] == "404":
                 return HttpResponseNotFound('<h1>No Page Here (404)</h1>')
             else:
+                # templist = res["value"]
+                # templist.extend({"list": ["A","C","E"]})
+                # res["value"] = templist
+                res["value"]["prices"] = price
+                res["value"]["currency"] = currency
                 return render_to_response('cars.html', res["value"], context_instance=RequestContext(request))
+                #return render_to_response('cars.html', locals(), context_instance=RequestContext(request))
 
     car_name = car_name[:-7]
 
@@ -133,7 +141,9 @@ def req_brand(request, car_name):
         return HttpResponseNotFound('<h1>No Page Here (404)</h1>')'''
 
     res = OrderedDict()
+
     brands = Car.objects.filter(name=car_name).values('brand').distinct().annotate(davg=Avg('price')).order_by("brand")
+
 
     for brand in brands:
         if brand["davg"] == 0:
@@ -148,24 +158,37 @@ def req_brand(request, car_name):
 
         prev_car_per_country = {item["country"]:item for item in prev_car_per_country}'''
 
+        make = Make.objects.filter(name=car_name).first()
+        model = make.model_set.filter(name=brand["brand"]).first()
+        
+        price = model.price_set.annotate(usa_l_price=Avg('usa_low_price'),
+            usa_a_price=Avg('usa_avg_price'),
+            usa_h_price=Avg('usa_high_price'),
+            uk_l_price=Avg('uk_low_price'),
+            uk_a_price=Avg('uk_avg_price'),
+            uk_h_price=Avg('uk_high_price'))
+
         temp_data = OrderedDict()
         temp_data["USA"], temp_data["UK"], temp_data["France"], temp_data["Germany"], temp_data["Italy"], temp_data["Switzerland"], = None, None, None, None,None, None        
          
-        for item in car_per_country:
-            if item["country"] in temp_data.keys():
-                item["davg"] *= currency["currency_rate"]
+        # for item in car_per_country:
+        #     if item["country"] in temp_data.keys():
+        #         item["davg"] *= currency["currency_rate"]
 
-                prev_price = 0
-                percent = 0
-                '''if item["country"] in prev_car_per_country:
-                    prev_price = prev_car_per_country[item["country"]]["pavg"] * currency["currency_rate"]
-                    percent = (item["davg"] - prev_price) * 100 / item["davg"]'''
+        #         prev_price = 0
+        #         percent = 0
+        #         '''if item["country"] in prev_car_per_country:
+        #             prev_price = prev_car_per_country[item["country"]]["pavg"] * currency["currency_rate"]
+        #             percent = (item["davg"] - prev_price) * 100 / item["davg"]'''
 
-                temp_data[item["country"]] = {"davg": int(item["davg"]), 
-                                              "pavg": prev_price, 
-                                              "percent": percent}
+        #         temp_data[item["country"]] = {"davg": int(item["davg"]), 
+        #                                       "pavg": prev_price, 
+        #                                       "percent": percent}
 
-        res[brand["brand"]] = temp_data
+        # print price
+        if price.count() > 1:
+            print price[0]
+            res[brand["brand"]] = [price[0]]
 
     chartData = getChartData({"car_name": car_name}, currency["currency_rate"])
     menu = getMenu()
@@ -214,6 +237,7 @@ def req_year(currency, car_name, brand):
 
     res = OrderedDict()
     years = Car.objects.filter(name=car_name, brand=brand).exclude(price=0).values('year').distinct().order_by("-year")
+
 
     for year in years:
         car_per_country = Car.objects.filter(name=car_name, brand=brand, year=year["year"]).exclude(price=0) \

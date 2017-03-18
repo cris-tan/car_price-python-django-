@@ -53,6 +53,21 @@ class YearFilter(models.Model):
     def __unicode__(self):
         return "{} : {}-{}".format(self.model.alias, self.from_year, self.to_year)
 
+class Price(models.Model):
+    model = models.ForeignKey(Model)
+    usa_low_price = models.IntegerField('USA Low Price')
+    usa_avg_price = models.IntegerField('USA Average Price')
+    usa_high_price = models.IntegerField('USA High Price')
+
+    uk_low_price = models.IntegerField('UK Low Price')
+    uk_avg_price = models.IntegerField('UK Average Price')
+    uk_high_price = models.IntegerField('UK High Price')
+    
+    year = models.IntegerField('Year')
+
+    # def __unicode__(self):
+    #     return "{} : {}-{}-{}-{}".format(self.model.alias, self.year, self.low_price, self.avg_price, self.high_price)        
+
 class Block(models.Model):
     car_id = models.CharField(max_length=50, unique=True)
     class Meta:

@@ -23,8 +23,13 @@ class YearFilterTabularInline(admin.TabularInline):
     extra = 0
     fields = ['from_year', 'to_year']
 
+class PriceFilterTabularInline(admin.TabularInline):
+    model = Price
+    extra = 0
+    fields = ['year', 'usa_low_price', 'usa_avg_price', 'usa_high_price', 'uk_low_price', 'uk_avg_price', 'uk_high_price']    
+
 class ModelAdmin(admin.ModelAdmin):
-    inlines = [YearFilterTabularInline]
+    inlines = [YearFilterTabularInline, PriceFilterTabularInline]
     class Meta:
         model = Model
 
