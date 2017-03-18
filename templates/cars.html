@@ -121,24 +121,24 @@
                             <div class = "text-left price-year"><a>{{item.year}}</a></div>                
                             <div class = "price-item">
                                 <div class="custom-hidden" style="margin-left: 5px;">
-                                    <span>{{item.usa_low_price|floatformat:"0"|intcomma}}$</span>
+                                    <span>${{item.usa_low_price|floatformat:"0"|intcomma}}</span>
                                 </div>
                                 <div style="margin-left: 5px;">
-                                    <span>{{item.usa_avg_price|floatformat:"0"|intcomma}}$</span>
+                                    <span>${{item.usa_avg_price|floatformat:"0"|intcomma}}</span>
                                 </div>
                                 <div class="custom-hidden" style="margin-left: 5px;">
-                                    <span>{{item.usa_high_price|floatformat:"0"|intcomma}}$</span>
+                                    <span>${{item.usa_high_price|floatformat:"0"|intcomma}}</span>
                                 </div>
                             </div>
                             <div class = "price-item" >
                                 <div class="custom-hidden" style="margin-left: 5px;">
-                                    <span>{{item.uk_low_price|floatformat:"0"|intcomma}}€</span>
+                                    <span>€{{item.uk_low_price|floatformat:"0"|intcomma}}</span>
                                 </div>
                                 <div style="margin-left: 5px;">
-                                    <span>{{item.uk_avg_price|floatformat:"0"|intcomma}}€</span>
+                                    <span>€{{item.uk_avg_price|floatformat:"0"|intcomma}}</span>
                                 </div>
                                 <div class="custom-hidden" style="margin-left: 5px;">
-                                    <span>{{item.uk_high_price|floatformat:"0"|intcomma}}€</span>
+                                    <span>€{{item.uk_high_price|floatformat:"0"|intcomma}}</span>
                                 </div>                            
                             </div>
                         </div>
@@ -153,24 +153,24 @@
                             {% for cn in res|dict:name %}                          
                                 <div class = "price-item">
                                     <div class="custom-hidden" style="margin-left: 5px;">
-                                        <span>{{cn.usa_l_price|floatformat:"0"|intcomma}}$</span>
+                                        <span>${{cn.usa_l_price|floatformat:"0"|intcomma}}</span>
                                     </div>
                                     <div style="margin-left: 5px;">
-                                        <span>{{cn.usa_a_price|floatformat:"0"|intcomma}}$</span>
+                                        <span>${{cn.usa_a_price|floatformat:"0"|intcomma}}</span>
                                     </div>
                                     <div class="custom-hidden" style="margin-left: 5px;">
-                                        <span>{{cn.usa_h_price|floatformat:"0"|intcomma}}$</span>
+                                        <span>${{cn.usa_h_price|floatformat:"0"|intcomma}}</span>
                                     </div>
                                 </div>
                                 <div class = "price-item" >
                                     <div class="custom-hidden" style="margin-left: 5px;">
-                                        <span>{{cn.uk_l_price|floatformat:"0"|intcomma}}€</span>
+                                        <span>€{{cn.uk_l_price|floatformat:"0"|intcomma}}</span>
                                     </div>
                                     <div style="margin-left: 5px;">
-                                        <span>{{cn.uk_a_price|floatformat:"0"|intcomma}}€</span>
+                                        <span>€{{cn.uk_a_price|floatformat:"0"|intcomma}}</span>
                                     </div>
                                     <div class="custom-hidden" style="margin-left: 5px;">
-                                        <span>{{cn.uk_h_price|floatformat:"0"|intcomma}}€</span>
+                                        <span>€{{cn.uk_h_price|floatformat:"0"|intcomma}}</span>
                                     </div>                            
                                 </div>
                             {% endfor %}
