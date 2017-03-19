@@ -312,16 +312,17 @@ $('#highchart_2').highcharts({
             text: 'Source: WorldClimate.com',
             x: -20
         },*/
-        yAxis: {
+        yAxis: [{
             title: {
-                text: 'Price ({{currency.currency}})'
+                text: 'Price ($)'
+            }
+        }, {
+            title: {
+                text: 'Price (€)'
             },
-            plotLines: [{
-                value: 0,
-                width: 1,
-                color: '#808080'
-            }]
-        },
+            gridLineWidth: 0,
+            opposite: true
+        }],
         xAxis: {
             title: {
             text: 'Year'
