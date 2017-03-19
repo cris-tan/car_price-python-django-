@@ -22,16 +22,18 @@ class StaticViewSitemap(sitemaps.Sitemap):
     def items(self):
         urls = [["main"], ]
 
-        names = Car.objects.values('name').distinct().annotate(davg=Avg('price'))
-        tp_names = [["brand", slugify(name["name"])+"-prices"] for name in names if name["davg"] != 0]
+        #names = Car.objects.values('name').distinct().annotate(davg=Avg('price'))
+        names = Make.objects.all()
+        
+        tp_names = [["brand", slugify(name.name)+"-prices"] for name in names]
         
         brands = []
         for name in names:
-            tp_brand = Car.objects.filter(name=name["name"]).values('brand').distinct().annotate(davg=Avg('price'))
-            brand = [["brand", slugify(name["name"]) + "-" + slugify(brand["brand"])+"-prices"] for brand in tp_brand if brand["davg"] != 0]
+            #tp_brand = Car.objects.filter(name=name["name"]).values('brand').distinct().annotate(davg=Avg('price'))
+            tp_brand = name.model_set.values('name').distinct()
+            brand = [["brand", slugify(name.name) + "-" + slugify(brand["name"])+"-prices"] for brand in tp_brand]
             brands += brand
 
-        print brands
         return urls + tp_names + brands
 
     def get_urls(self, site=None, **kwargs):
