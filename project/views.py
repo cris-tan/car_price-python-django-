@@ -325,9 +325,9 @@ def getMenu():
     #     new = []
     #     for item in temp:
     #         new.append(item.name)
-
-    #     print new
+        
     #     res[name.name] = [name, new]
+    #     print res[name.name]
     # return res
 
 def getChartData(param, currency_rate, type=None):
