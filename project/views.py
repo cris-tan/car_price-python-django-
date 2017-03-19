@@ -154,32 +154,31 @@ def req_brand(request, car_name):
 
     brands = Car.objects.filter(name=car_name).values('brand').distinct().annotate(davg=Avg('price')).order_by("brand")
 
+    make = Make.objects.filter(name=car_name).first()    
+    model = make.model_set.all()            
 
-    for brand in brands:
-        if brand["davg"] == 0:
-            continue
+    for brand in model:
+        # if brand["davg"] == 0:
+        #     continue
 
-        car_per_country = Car.objects.filter(name=car_name, brand=brand["brand"]).exclude(price=0) \
-                                     .values('country') \
-                                     .annotate(davg=Avg('price'))
+        # car_per_country = Car.objects.filter(name=car_name, brand=brand["brand"]).exclude(price=0) \
+        #                              .values('country') \
+        #                              .annotate(davg=Avg('price'))
         '''prev_car_per_country = Car.objects.filter(name=car_name, brand=brand["brand"]).exclude(prev_price=0) \
                                      .values('country') \
                                      .annotate(pavg=Avg('prev_price'))
 
         prev_car_per_country = {item["country"]:item for item in prev_car_per_country}'''
 
-        make = Make.objects.filter(name=car_name).first()
-        model = make.model_set.filter(name=brand["brand"]).first()
-        
-        price = model.price_set.annotate(usa_l_price=Avg('usa_low_price'),
+        price = brand.price_set.annotate(usa_l_price=Avg('usa_low_price'),
             usa_a_price=Avg('usa_avg_price'),
             usa_h_price=Avg('usa_high_price'),
             uk_l_price=Avg('uk_low_price'),
             uk_a_price=Avg('uk_avg_price'),
             uk_h_price=Avg('uk_high_price')).order_by('-year')
 
-        temp_data = OrderedDict()
-        temp_data["USA"], temp_data["UK"], temp_data["France"], temp_data["Germany"], temp_data["Italy"], temp_data["Switzerland"], = None, None, None, None,None, None        
+        # temp_data = OrderedDict()
+        # temp_data["USA"], temp_data["UK"], temp_data["France"], temp_data["Germany"], temp_data["Italy"], temp_data["Switzerland"], = None, None, None, None,None, None        
          
         # for item in car_per_country:
         #     if item["country"] in temp_data.keys():
@@ -198,7 +197,7 @@ def req_brand(request, car_name):
         # print price
         if price.count() > 0:
             print price[0]
-            res[brand["brand"]] = [price[0]]
+            res[brand.name] = [price[0]]
 
     chartData = getChartData({"car_name": car_name}, currency["currency_rate"])
     menu = getMenu()
