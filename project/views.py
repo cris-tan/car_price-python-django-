@@ -326,7 +326,7 @@ def getMenu():
     #     for item in temp:
     #         new.append(item.name)
         
-    #     res[name.name] = [name, new]
+    #     res[name.name] = [name.name, new]
     #     print res[name.name]
     # return res
 
