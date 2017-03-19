@@ -330,7 +330,16 @@ $('#highchart_2').highcharts({
         },
         tooltip: {
             valueDecimals: 0,
-            valuePrefix: '{{currency.currency}}'
+            valuePrefix: '{{currency.currency}}',
+            formatter: function () {
+                var currency;
+                if(this.series.name == "USA")
+                    currency = "$";
+                if(this.series.name == "UK")
+                    currency = "€";
+                return  '<span style="color:#999999; font-size:10px;">' + this.x + '</span>' + '<br/><b style="color:' + this.series.color + ';font-size:14px;">' + this.series.name + '</b>' + ' : ' + '<span style="color:black;font-size:14px;font-weight:bold!important;">'+ currency + this.y +'</span>';
+
+            }
         },
         legend: {
             layout: 'vertical',
