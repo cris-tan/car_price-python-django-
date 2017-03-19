@@ -33,42 +33,52 @@ def main(request):
     res = OrderedDict()
     names = Car.objects.values('name').distinct().annotate(davg=Avg('price')).order_by("name")    
 
-    for name in names:
-        if name["davg"] == 0:
-            continue
+    make = Make.objects.all()    
 
-        car_per_country = Car.objects.filter(name=name["name"]).exclude(price=0) \
-                                     .values('country') \
-                                     .annotate(davg=Avg('price'))
+    for name in make:
 
-        car_per_brand = Car.objects.filter(name=name["name"]).exclude(price=0) \
-                                     .values('brand').distinct().order_by("brand")                                   
+        model = name.model_set.all()            
+        # res[name["name"]] = temp_data
+        res[name.name] = []
+        #res[name.name]["brand"] = []
+        res[name.name] = {"brand": model};
+        #print res[name.name]["brand"]
+    # for name in names:
+    #     if name["davg"] == 0:
+    #         continue
+
+    #     car_per_country = Car.objects.filter(name=name["name"]).exclude(price=0) \
+    #                                  .values('country') \
+    #                                  .annotate(davg=Avg('price'))
+
+    #     car_per_brand = Car.objects.filter(name=name["name"]).exclude(price=0) \
+    #                                  .values('brand').distinct().order_by("brand")                                   
         
-        '''prev_car_per_country = Car.objects.filter(name=name["name"]).exclude(prev_price=0) \
-                                     .values('country') \
-                                     .annotate(pavg=Avg('prev_price'))
+    #     '''prev_car_per_country = Car.objects.filter(name=name["name"]).exclude(prev_price=0) \
+    #                                  .values('country') \
+    #                                  .annotate(pavg=Avg('prev_price'))
         
-        prev_car_per_country = {item["country"]:item for item in prev_car_per_country}'''
+    #     prev_car_per_country = {item["country"]:item for item in prev_car_per_country}'''
 
-        temp_data = OrderedDict()
-        temp_data["USA"], temp_data["UK"], temp_data["France"], temp_data["Germany"], temp_data["Italy"], temp_data["Switzerland"], = None, None, None, None,None, None        
+    #     temp_data = OrderedDict()
+    #     temp_data["USA"], temp_data["UK"], temp_data["France"], temp_data["Germany"], temp_data["Italy"], temp_data["Switzerland"], = None, None, None, None,None, None        
          
-        for item in car_per_country:
-            if item["country"] in temp_data.keys():
-                item["davg"] *= currency["currency_rate"]
+    #     for item in car_per_country:
+    #         if item["country"] in temp_data.keys():
+    #             item["davg"] *= currency["currency_rate"]
 
-                prev_price = 0
-                percent = 0
-                '''if item["country"] in prev_car_per_country:
-                    prev_price = prev_car_per_country[item["country"]]["pavg"] * currency["currency_rate"]
-                    percent = (item["davg"] - prev_price) * 100 / item["davg"]'''
+    #             prev_price = 0
+    #             percent = 0
+    #             '''if item["country"] in prev_car_per_country:
+    #                 prev_price = prev_car_per_country[item["country"]]["pavg"] * currency["currency_rate"]
+    #                 percent = (item["davg"] - prev_price) * 100 / item["davg"]'''
 
-                temp_data[item["country"]] = {"davg": int(item["davg"]), 
-                                              "pavg": prev_price, 
-                                              "percent": percent}
+    #             temp_data[item["country"]] = {"davg": int(item["davg"]), 
+    #                                           "pavg": prev_price, 
+    #                                           "percent": percent}
 
-        res[name["name"]] = temp_data
-        res[name["name"]]["brand"] = car_per_brand
+    #     res[name["name"]] = temp_data
+    #     res[name["name"]]["brand"] = car_per_brand
 
     chartData = getChartData(dict(), currency["currency_rate"], type)
     menu = getMenu()

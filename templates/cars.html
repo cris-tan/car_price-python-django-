@@ -84,6 +84,16 @@
                         width: 15%;
                     }
 
+                    .price_list .price-item > *:first-child {
+                        text-align: right;
+                        padding-right: 7%;
+                    }
+
+                    .price_list .price-item > *:last-child {
+                        text-align: left;
+                        padding-left: 7%;
+                    }
+
                     @media (max-width: 670px) {
                         .custom-hidden {
                             display: none!important;
@@ -92,12 +102,12 @@
                 </style>
 
                 <div class = "price_header">
-                    <div class = "text-left price-year">{% if car_brand == None %}Model{% else %}Year{% endif %}</div>                
+                    <div class = "text-left price-year"></div>                
                     <div class = "text-center price-item"><span class="flag flag-us" style="position: relative; top: 3px;"></span> <span style="margin-left: 5px;">USA</span></div>
                     <div class = "text-center price-item"><span class="flag flag-gb" style="position: relative; top: 3px;"></span> <span style="margin-left: 5px;">UK</span></div>
                 </div>
                 <div class = "price_list" style = "font-weight: bold;">
-                    <div class = "text-left price-year"></div>                
+                    <div class = "text-left price-year">{% if car_brand == None %}Model{% else %}Year{% endif %}</div>                
                     <div class = "price-item">
                         <div class="custom-hidden" style="margin-left: 5px;">
                             <span>Low</span>
@@ -197,7 +207,7 @@
                                 <ul>  
                                     {% for cn in res|dict:name|dict:"brand" %}                    
                                         <li>
-                                             <a href="{{name|slugify}}-{{cn.brand|slugify}}-prices" style = "font-weight: bold;">{{cn.brand}} Prices</a>
+                                             <a href="{{name|slugify}}-{{cn.name|slugify}}-prices" style = "font-weight: bold;">{{cn.name}} Prices</a>
                                         </li>        
                                     {% endfor %}
                                 </ul>
