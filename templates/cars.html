@@ -350,7 +350,12 @@ $('#highchart_2').highcharts({
         },
         series: [
                     {% for data in chartData|dict:1 %}
-                    {name: '{{data|dict:"name"}}', data: {{data|dict:"data"}}, color: colors[{{ forloop.counter0 }}]},
+                    {% if data|dict:"name" == "USA" %}
+                        {name: '{{data|dict:"name"}}', data: {{data|dict:"data"}}, color: colors[{{ forloop.counter0 }}], yAxis:0},
+                    {% endif %}
+                    {% if data|dict:"name" == "UK" %}
+                        {name: '{{data|dict:"name"}}', data: {{data|dict:"data"}}, color: colors[{{ forloop.counter0 }}], yAxis:1},
+                    {% endif %}
                     {% endfor %}
                 ]
     });
