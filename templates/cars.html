@@ -72,7 +72,7 @@
                     }
 
                     .price_list .price-item {
-                        width: 43.66667%;
+                        width: 45.66667%;
                         /*display: flex;*/
                         display: table;
                         justify-content: space-around;
@@ -159,31 +159,30 @@
                         <div class = "price_list">
                             <div class = "text-left price-year"><a href="{%if car_brand != None %} javascript:;
                                      {% elif car_name != None %} /{{car_name|slugify}}-{{name|slugify}}-prices
-                                     {% else %} {% url 'brand' car_name=name|slugify|postfix:'-prices' %} {% endif %}">{{name}}</a></div>                
-                            {% for cn in res|dict:name %}                          
+                                     {% else %} {% url 'brand' car_name=name|slugify|postfix:'-prices' %} {% endif %}">{{name}}</a></div>            
+
                                 <div class = "price-item">
                                     <div class="custom-hidden" style="margin-left: 5px;">
-                                        <span>${{cn.usa_l_price|floatformat:"0"|intcomma}}</span>
+                                        <span>${{res|dict:name|dict:'usa_h_price'|floatformat:"0"|intcomma}}</span>
                                     </div>
                                     <div style="margin-left: 5px;">
-                                        <span>${{cn.usa_a_price|floatformat:"0"|intcomma}}</span>
+                                        <span>${{res|dict:name|dict:'usa_a_price'|floatformat:"0"|intcomma}}</span>
                                     </div>
                                     <div class="custom-hidden" style="margin-left: 5px;">
-                                        <span>${{cn.usa_h_price|floatformat:"0"|intcomma}}</span>
+                                        <span>${{res|dict:name|dict:'usa_l_price'|floatformat:"0"|intcomma}}</span>
                                     </div>
                                 </div>
                                 <div class = "price-item" >
                                     <div class="custom-hidden" style="margin-left: 5px;">
-                                        <span>€{{cn.uk_l_price|floatformat:"0"|intcomma}}</span>
+                                        <span>€{{res|dict:name|dict:'uk_h_price'|floatformat:"0"|intcomma}}</span>
                                     </div>
                                     <div style="margin-left: 5px;">
-                                        <span>€{{cn.uk_a_price|floatformat:"0"|intcomma}}</span>
+                                        <span>€{{res|dict:name|dict:'uk_a_price'|floatformat:"0"|intcomma}}</span>
                                     </div>
                                     <div class="custom-hidden" style="margin-left: 5px;">
-                                        <span>€{{cn.uk_h_price|floatformat:"0"|intcomma}}</span>
+                                        <span>€{{res|dict:name|dict:'uk_l_price'|floatformat:"0"|intcomma}}</span>
                                     </div>                            
                                 </div>
-                            {% endfor %}
                         </div>
                     {% endfor %}
                 {% endif %}

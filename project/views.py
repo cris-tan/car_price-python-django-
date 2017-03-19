@@ -90,6 +90,7 @@ def main(request):
 
 def req_brand(request, car_name):
 
+
     redirects = Redirect.objects.all()
     for redirect_obj in redirects:
         if redirect_obj.old_path == request.path:
@@ -136,12 +137,13 @@ def req_brand(request, car_name):
                 return render_to_response('cars.html', res["value"], context_instance=RequestContext(request))
                 #return render_to_response('cars.html', locals(), context_instance=RequestContext(request))
 
-    car_name = car_name[:-7]
 
+    car_name = car_name[:-7]
+    
     country_label = settings.COUNTRY
     tp_car_name = car_name
     car_name = getNameFromSlug(car_name, "name")
-
+    print car_name
     '''if not car_name:
         redirects = Redirect.objects.all()
         for redirect_obj in redirects:
@@ -155,6 +157,10 @@ def req_brand(request, car_name):
     brands = Car.objects.filter(name=car_name).values('brand').distinct().annotate(davg=Avg('price')).order_by("brand")
 
     make = Make.objects.filter(name=car_name).first()    
+
+    print '--------------------'
+    print car_name
+    print make 
     model = make.model_set.all()            
 
     for brand in model:
@@ -170,12 +176,12 @@ def req_brand(request, car_name):
 
         prev_car_per_country = {item["country"]:item for item in prev_car_per_country}'''
 
-        price = brand.price_set.annotate(usa_l_price=Avg('usa_low_price'),
+        price = brand.price_set.all().order_by('-year').aggregate(usa_l_price=Avg('usa_low_price'),
             usa_a_price=Avg('usa_avg_price'),
             usa_h_price=Avg('usa_high_price'),
             uk_l_price=Avg('uk_low_price'),
             uk_a_price=Avg('uk_avg_price'),
-            uk_h_price=Avg('uk_high_price')).order_by('-year')
+            uk_h_price=Avg('uk_high_price'))
 
         # temp_data = OrderedDict()
         # temp_data["USA"], temp_data["UK"], temp_data["France"], temp_data["Germany"], temp_data["Italy"], temp_data["Switzerland"], = None, None, None, None,None, None        
@@ -194,10 +200,10 @@ def req_brand(request, car_name):
         #                                       "pavg": prev_price, 
         #                                       "percent": percent}
 
-        # print price
-        if price.count() > 0:
-            print price[0]
-            res[brand.name] = [price[0]]
+        print price
+        if price['usa_a_price'] != None:
+            res[brand.name] = price
+        
 
     chartData = getChartData({"car_name": car_name}, currency["currency_rate"])
     menu = getMenu()
@@ -309,6 +315,21 @@ def getMenu():
  
     return res
 
+    # names = Make.objects.order_by("name")
+
+    # res = OrderedDict()
+    # for name in names:        
+
+    #     temp = name.model_set.order_by("name")
+        
+    #     new = []
+    #     for item in temp:
+    #         new.append(item.name)
+
+    #     print new
+    #     res[name.name] = [name, new]
+    # return res
+
 def getChartData(param, currency_rate, type=None):
     # get chart data
     years = Car.objects.values('year').distinct()
@@ -404,16 +425,27 @@ def getChartData(param, currency_rate, type=None):
 
 def getNameFromSlug(slug, type):
     if type == "name":
-        names = Car.objects.values('name').distinct()
+        #names = Car.objects.values('name').distinct()
+        names = Make.objects.values('name').distinct()
         names = {slugify(name["name"]):name["name"] for name in names}
 
         return names.get(slug)
     elif type == "brand":
-        brands = Car.objects.values('brand').distinct()
-        brands = {slugify(brand["brand"]):brand["brand"] for brand in brands}
+        all_brands = {}
+        make = Make.objects.all()
+        for item in make:
+            brands = item.model_set.all()            
+            for brand in brands:
+                all_brands[slugify(brand.name)] = brand.name
 
-        return brands.get(slug)
+        return all_brands.get(slug)
 
 
 def getKey(item):
     return item[0]
+
+
+
+# print '@@@@@'
+# print brands.get(slug)
+# return brands.get(slug)
