@@ -169,7 +169,7 @@
                                                     <ul class="dropdown-menu" style="background-color: white;">
                                                         {% for brand in menu|dict:name|dict:1 %}
                                                         <li class="">
-                                                            <a href="/{{name|slugify}}-{{brand|dict:'brand'|slugify}}-prices" class="nav-link" style="color: black;"> {{brand|dict:'brand'}}</a>
+                                                            <a href="/{{name|slugify}}-{{brand|dict:'name'|slugify}}-prices" class="nav-link" style="color: black;"> {{brand|dict:'name'}}</a>
                                                         </li>
                                                         {% endfor %}
                                                     </ul>

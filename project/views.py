@@ -297,38 +297,38 @@ def redirect_url(request, car_name, brand):
 
 
 def getMenu():
-    names = Car.objects.values('name').annotate(count=Avg('price')).order_by("name")
-
-    res = OrderedDict()
-    for name in names:
-        if name["count"] == 0:
-            continue
-   
-        temp = Car.objects.filter(name=name["name"]).values('brand').annotate(count=Count('brand'), avg=Avg('price')).order_by("brand")
-        
-        new = []
-        for item in temp:
-            if item["avg"] != 0:
-                new.append(item)
-
-        res[name["name"]] = [name, new]
- 
-    return res
-
-    # names = Make.objects.order_by("name")
+    # names = Car.objects.values('name').annotate(count=Avg('price')).order_by("name")
 
     # res = OrderedDict()
-    # for name in names:        
-
-    #     temp = name.model_set.order_by("name")
+    # for name in names:
+    #     if name["count"] == 0:
+    #         continue
+   
+    #     temp = Car.objects.filter(name=name["name"]).values('brand').annotate(count=Count('brand'), avg=Avg('price')).order_by("brand")
         
     #     new = []
     #     for item in temp:
-    #         new.append(item.name)
-        
-    #     res[name.name] = [name.name, new]
-    #     print res[name.name]
+    #         if item["avg"] != 0:
+    #             new.append(item)
+
+    #     res[name["name"]] = [name, new]
+ 
     # return res
+
+    names = Make.objects.order_by("name")
+
+    res = OrderedDict()
+    for name in names:        
+
+        temp = name.model_set.values('name').order_by("name")
+        
+        new = []
+        for item in temp:
+            new.append(item)
+        
+        res[name.name] = [name.name, new]
+
+    return res
 
 def getChartData(param, currency_rate, type=None):
     # get chart data
