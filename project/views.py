@@ -181,7 +181,8 @@ def req_brand(request, car_name):
             usa_h_price=Avg('usa_high_price'),
             uk_l_price=Avg('uk_low_price'),
             uk_a_price=Avg('uk_avg_price'),
-            uk_h_price=Avg('uk_high_price'))
+            uk_h_price=Avg('uk_high_price'),
+            year=Avg('year'))
 
         # temp_data = OrderedDict()
         # temp_data["USA"], temp_data["UK"], temp_data["France"], temp_data["Germany"], temp_data["Italy"], temp_data["Switzerland"], = None, None, None, None,None, None        
@@ -201,7 +202,7 @@ def req_brand(request, car_name):
         #                                       "percent": percent}
 
         print price
-        if price['usa_a_price'] != None:
+        if price['year'] != None:
             res[brand.name] = price
         
 
@@ -396,17 +397,34 @@ def getChartData(param, currency_rate, type=None):
     tp_chartDataForCountry["USA"] = []
     for item in brand_price:
         # if item["country"] not in tp_chartDataForCountry:
-        #     tp_chartDataForCountry[item["country"]] = []
+        #     tp_chartDataForCountry[item["country"]] = []        
+        if item.usa_avg_price: 
+            usa_price = item.usa_avg_price
+        else:
+            usa_price = 0
 
-        tp_chartDataForCountry["USA"].append([float(item.year), float(item.usa_avg_price)])
-        tp_chartDataForCountry["UK"].append([float(item.year), float(item.uk_avg_price)])
+        if item.uk_avg_price: 
+            uk_price = item.uk_avg_price
+        else:
+            uk_price = 0
+        tp_chartDataForCountry["USA"].append([float(item.year), float(usa_price)])
+        tp_chartDataForCountry["UK"].append([float(item.year), float(uk_price)])
 
     for item in car_price:
         # if item["country"] not in tp_chartDataForCountry:
-        #     tp_chartDataForCountry[item["country"]] = []
+        #     tp_chartDataForCountry[item["country"]] = []        
         for price in item:
-            tp_chartDataForCountry["USA"].append([float(price.year), float(price.usa_avg_price)])
-            tp_chartDataForCountry["UK"].append([float(price.year), float(price.uk_avg_price)])
+            if price.usa_avg_price: 
+                usa_price = price.usa_avg_price
+            else:
+                usa_price = 0
+
+            if price.uk_avg_price: 
+                uk_price = price.uk_avg_price
+            else:
+                uk_price = 0
+            tp_chartDataForCountry["USA"].append([float(price.year), float(usa_price)])
+            tp_chartDataForCountry["UK"].append([float(price.year), float(uk_price)])
 
     print tp_chartDataForCountry
     chartDataForCountry = []

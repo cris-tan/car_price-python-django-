@@ -139,24 +139,24 @@
                             <div class = "text-left price-year"><a>{{item.year}}</a></div>                
                             <div class = "price-item">
                                 <div class="custom-hidden" style="margin-left: 5px;">
-                                    <span>${{item.usa_low_price|floatformat:"0"|intcomma}}</span>
+                                    <span>{%if item.usa_low_price%}${{item.usa_low_price|floatformat:"0"|intcomma}}{%else%}---{%endif%}</span>
                                 </div>
                                 <div style="margin-left: 5px;">
-                                    <span>${{item.usa_avg_price|floatformat:"0"|intcomma}}</span>
+                                    <span>{%if item.usa_avg_price%}${{item.usa_avg_price|floatformat:"0"|intcomma}}{%else%}---{%endif%}</span>
                                 </div>
                                 <div class="custom-hidden" style="margin-left: 5px;">
-                                    <span>${{item.usa_high_price|floatformat:"0"|intcomma}}</span>
+                                    <span>{%if item.usa_high_price%}${{item.usa_high_price|floatformat:"0"|intcomma}}{%else%}---{%endif%}</span>
                                 </div>
                             </div>
                             <div class = "price-item" >
                                 <div class="custom-hidden" style="margin-left: 5px;">
-                                    <span>£{{item.uk_low_price|floatformat:"0"|intcomma}}</span>
+                                    <span>{%if item.uk_low_price%}£{{item.uk_low_price|floatformat:"0"|intcomma}}{%else%}---{%endif%}</span>
                                 </div>
                                 <div style="margin-left: 5px;">
-                                    <span>£{{item.uk_avg_price|floatformat:"0"|intcomma}}</span>
+                                    <span>{%if item.uk_avg_price%}£{{item.uk_avg_price|floatformat:"0"|intcomma}}{%else%}---{%endif%}</span>
                                 </div>
                                 <div class="custom-hidden" style="margin-left: 5px;">
-                                    <span>£{{item.uk_high_price|floatformat:"0"|intcomma}}</span>
+                                    <span>{%if item.uk_high_price%}£{{item.uk_high_price|floatformat:"0"|intcomma}}{%else%}---{%endif%}</span>
                                 </div>                            
                             </div>
                         </div>
@@ -171,25 +171,31 @@
 
                                 <div class = "price-item">
                                     <div class="custom-hidden" style="margin-left: 5px;">
-                                        <span>${{res|dict:name|dict:'usa_l_price'|floatformat:"0"|intcomma}}</span>
+                                        <span>{%if res|dict:name|dict:'usa_l_price'%}${{res|dict:name|dict:'usa_l_price'|floatformat:"0"|intcomma}}
+                                        {%else%}---{%endif%}</span>
                                     </div>
                                     <div style="margin-left: 5px;">
-                                        <span>${{res|dict:name|dict:'usa_a_price'|floatformat:"0"|intcomma}}</span>
+                                        <span>{%if res|dict:name|dict:'usa_a_price'%}${{res|dict:name|dict:'usa_a_price'|floatformat:"0"|intcomma}}
+                                        {%else%}---{%endif%}</span>
                                     </div>
                                     <div class="custom-hidden" style="margin-left: 5px;">
-                                        <span>${{res|dict:name|dict:'usa_h_price'|floatformat:"0"|intcomma}}</span>
+                                        <span>{%if res|dict:name|dict:'usa_h_price'%}${{res|dict:name|dict:'usa_h_price'|floatformat:"0"|intcomma}}
+                                        {%else%}---{%endif%}</span>
                                     </div>
                                 </div>
                                 <div class = "price-item" >
                                     <div class="custom-hidden" style="margin-left: 5px;">
-                                        <span>£{{res|dict:name|dict:'uk_l_price'|floatformat:"0"|intcomma}}</span>
+                                        <span>{%if res|dict:name|dict:'uk_l_price'%}£{{res|dict:name|dict:'uk_l_price'|floatformat:"0"|intcomma}}
+                                        {%else%}---{%endif%}</span>
                                     </div>
                                     <div style="margin-left: 5px;">
-                                        <span>£{{res|dict:name|dict:'uk_a_price'|floatformat:"0"|intcomma}}</span>
+                                        <span>{%if res|dict:name|dict:'uk_a_price'%}£{{res|dict:name|dict:'uk_a_price'|floatformat:"0"|intcomma}}
+                                        {%else%}---{%endif%}</span>
                                     </div>
                                     <div class="custom-hidden" style="margin-left: 5px;">
-                                        <span>£{{res|dict:name|dict:'uk_h_price'|floatformat:"0"|intcomma}}</span>
-                                    </div>                            
+                                        <span>{%if res|dict:name|dict:'uk_h_price'%}£{{res|dict:name|dict:'uk_h_price'|floatformat:"0"|intcomma}}
+                                        {%else%}---{%endif%}</span>
+                                    </div>                         
                                 </div>
                         </div>
                     {% endfor %}

@@ -55,13 +55,13 @@ class YearFilter(models.Model):
 
 class Price(models.Model):
     model = models.ForeignKey(Model)
-    usa_low_price = models.IntegerField('USA Low Price')
-    usa_avg_price = models.IntegerField('USA Average Price')
-    usa_high_price = models.IntegerField('USA High Price')
+    usa_low_price = models.IntegerField('USA Low Price', blank=True, null=True)
+    usa_avg_price = models.IntegerField('USA Average Price', blank=True, null=True)
+    usa_high_price = models.IntegerField('USA High Price', blank=True, null=True)
 
-    uk_low_price = models.IntegerField('UK Low Price')
-    uk_avg_price = models.IntegerField('UK Average Price')
-    uk_high_price = models.IntegerField('UK High Price')
+    uk_low_price = models.IntegerField('UK Low Price', blank=True, null=True)
+    uk_avg_price = models.IntegerField('UK Average Price', blank=True, null=True)
+    uk_high_price = models.IntegerField('UK High Price', blank=True, null=True)
     
     year = models.IntegerField('Year')
 
