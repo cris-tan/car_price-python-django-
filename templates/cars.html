@@ -150,13 +150,13 @@
                             </div>
                             <div class = "price-item" >
                                 <div class="custom-hidden" style="margin-left: 5px;">
-                                    <span>€{{item.uk_low_price|floatformat:"0"|intcomma}}</span>
+                                    <span>£{{item.uk_low_price|floatformat:"0"|intcomma}}</span>
                                 </div>
                                 <div style="margin-left: 5px;">
-                                    <span>€{{item.uk_avg_price|floatformat:"0"|intcomma}}</span>
+                                    <span>£{{item.uk_avg_price|floatformat:"0"|intcomma}}</span>
                                 </div>
                                 <div class="custom-hidden" style="margin-left: 5px;">
-                                    <span>€{{item.uk_high_price|floatformat:"0"|intcomma}}</span>
+                                    <span>£{{item.uk_high_price|floatformat:"0"|intcomma}}</span>
                                 </div>                            
                             </div>
                         </div>
@@ -182,13 +182,13 @@
                                 </div>
                                 <div class = "price-item" >
                                     <div class="custom-hidden" style="margin-left: 5px;">
-                                        <span>€{{res|dict:name|dict:'uk_l_price'|floatformat:"0"|intcomma}}</span>
+                                        <span>£{{res|dict:name|dict:'uk_l_price'|floatformat:"0"|intcomma}}</span>
                                     </div>
                                     <div style="margin-left: 5px;">
-                                        <span>€{{res|dict:name|dict:'uk_a_price'|floatformat:"0"|intcomma}}</span>
+                                        <span>£{{res|dict:name|dict:'uk_a_price'|floatformat:"0"|intcomma}}</span>
                                     </div>
                                     <div class="custom-hidden" style="margin-left: 5px;">
-                                        <span>€{{res|dict:name|dict:'uk_h_price'|floatformat:"0"|intcomma}}</span>
+                                        <span>£{{res|dict:name|dict:'uk_h_price'|floatformat:"0"|intcomma}}</span>
                                     </div>                            
                                 </div>
                         </div>
@@ -318,7 +318,7 @@ $('#highchart_2').highcharts({
             }
         }, {
             title: {
-                text: 'Price (€)'
+                text: 'Price (£)'
             },
             gridLineWidth: 0,
             opposite: true
