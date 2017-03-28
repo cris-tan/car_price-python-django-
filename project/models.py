@@ -31,12 +31,13 @@ class Make(models.Model):
 
 
 class Model(models.Model):
-    make = models.ForeignKey(Make)
+    
     name = models.CharField(max_length=100)
     alias = models.CharField(max_length=100)
-    min_price = models.IntegerField(default=3500)
+    make = models.ForeignKey(Make)
     max_price = models.IntegerField(default=4500000)
-    year_interval = models.IntegerField(default=0)
+    min_price = models.IntegerField(default=3500)    
+    year_interval = models.IntegerField(default=0)    
 
     def __unicode__(self):
         return "{} - {} - {}".format(self.make.alias, self.alias, self.name)

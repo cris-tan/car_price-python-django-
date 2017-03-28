@@ -41,11 +41,11 @@ class Migration(migrations.Migration):
             fields=[
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('name', models.CharField(max_length=100)),
-                ('alias', models.CharField(max_length=100)),
-                ('min_price', models.IntegerField(default=3500)),
+                ('alias', models.CharField(max_length=100)),      
+                ('make', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='project.Make')),          
                 ('max_price', models.IntegerField(default=4500000)),
-                ('year_interval', models.IntegerField(default=0)),
-                ('make', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='project.Make')),
+                ('min_price', models.IntegerField(default=3500)),
+                ('year_interval', models.IntegerField(default=0)),                
             ],
             options={
                 'ordering': ('make__alias', 'name'),
