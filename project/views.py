@@ -360,30 +360,47 @@ def getChartData(param, currency_rate, type=None):
     #         chartData.append({"name": name, "data": data})            
 
 
-    brand_price = []
+    brand_price = {}
     car_price = []
 
-    if "car_brand" in param:
-        temp = Car.objects.filter(name=param['car_name'], brand=param['car_brand']).exclude(price=0) \
-                          .values("year", "country") \
-                          .annotate(davg=Avg('price')) \
-                          .order_by("country")
-        make = Make.objects.filter(name=param['car_name']).first()
-        model = make.model_set.filter(name=param['car_brand']).first()
-        brand_price = model.price_set.all().order_by('year')
-
-    elif "car_name" in param:
+    print param
+    
+    if "car_brand" in param:        
         temp = Car.objects.filter(name=param['car_name']).exclude(price=0).values("year", "country") \
                            .annotate(davg=Avg('price')).order_by("country")
         
         make = Make.objects.filter(name=param['car_name']).first()
         model = make.model_set.all()
         for item in model:
-           car_price.append(item.price_set.all().order_by('year'));
-    else:
-        temp = Car.objects.all().exclude(price=0).values("year", "country") \
-                           .annotate(davg=Avg('price')).order_by("country")
+           car_price.append(item.price_set.all().order_by('year'))
 
+    elif "car_name" in param:
+        
+        # temp = Car.objects.filter(name=param['car_name'], brand=param['car_brand']).exclude(price=0) \
+        #                   .values("year", "country") \
+        #                   .annotate(davg=Avg('price')) \
+        #                   .order_by("country")
+        make = Make.objects.filter(name=param['car_name']).first()
+        #model = make.model_set.filter(name=param['car_brand']).first()
+        model = make.model_set.all()
+        for item in model:            
+            for price in item.price_set.all():
+                #brand_price[price.year] = [brand_price[price.year][0]+price.usa_avg_price, brand_price[price.year][1] + 1]
+                if price.year in brand_price:
+                    usa_count = brand_price[price.year]['u_count'] + 1
+                    usa_each_price = brand_price[price.year]['u_price'] + price.usa_avg_price
+                    uk_count = brand_price[price.year]['k_count'] + 1
+                    uk_each_price = brand_price[price.year]['k_price'] + price.uk_avg_price
+                    brand_price[price.year] = {'u_price': usa_each_price, 'u_count': usa_count,
+                    'k_price': uk_each_price, 'k_count': uk_count}                
+                else:
+                    brand_price[price.year] = {'u_price': price.usa_avg_price, 'u_count': 1,
+                    'k_price': price.uk_avg_price, 'k_count': 1}                
+            # brand_price = model.price_set.all().order_by('year')
+            # car_price.append(item.price_set.all().order_by('year'));
+
+    print "----------------"
+    print brand_price
     tp_chartDataForCountry = OrderedDict()
 
     # for item in temp:
@@ -396,15 +413,8 @@ def getChartData(param, currency_rate, type=None):
     tp_chartDataForCountry["UK"] = []
     tp_chartDataForCountry["USA"] = []
     for item in brand_price:
-        # if item["country"] not in tp_chartDataForCountry:
-        #     tp_chartDataForCountry[item["country"]] = []        
-        if item.usa_avg_price: 
-            usa_price = item.usa_avg_price
-            tp_chartDataForCountry["USA"].append([float(item.year), float(item.usa_avg_price)])
-
-        if item.uk_avg_price: 
-            uk_price = item.uk_avg_price
-            tp_chartDataForCountry["UK"].append([float(item.year), float(item.uk_avg_price)])
+        tp_chartDataForCountry["USA"].append([float(item), float(brand_price[item]['u_price']/brand_price[item]['u_count'])])
+        tp_chartDataForCountry["UK"].append([float(item), float(brand_price[item]['k_price']/brand_price[item]['k_count'])])
 
     for item in car_price:
         # if item["country"] not in tp_chartDataForCountry:
