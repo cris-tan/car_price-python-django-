@@ -385,17 +385,26 @@ def getChartData(param, currency_rate, type=None):
         model = make.model_set.all()
         for item in model:            
             for price in item.price_set.all():
+                if price.usa_avg_price:
+                    usa_price = price.usa_avg_price
+                else:
+                    usa_price = 0
+
+                if price.uk_avg_price:
+                    uk_price = price.uk_avg_price
+                else:
+                    uk_price = 0
                 #brand_price[price.year] = [brand_price[price.year][0]+price.usa_avg_price, brand_price[price.year][1] + 1]
                 if price.year in brand_price:
-                    usa_count = brand_price[price.year]['u_count'] + 1
-                    usa_each_price = brand_price[price.year]['u_price'] + price.usa_avg_price
+                    usa_count = brand_price[price.year]['u_count'] + 1                    
+                    usa_each_price = brand_price[price.year]['u_price'] + usa_price
                     uk_count = brand_price[price.year]['k_count'] + 1
-                    uk_each_price = brand_price[price.year]['k_price'] + price.uk_avg_price
+                    uk_each_price = brand_price[price.year]['k_price'] + uk_price
                     brand_price[price.year] = {'u_price': usa_each_price, 'u_count': usa_count,
                     'k_price': uk_each_price, 'k_count': uk_count}                
                 else:
-                    brand_price[price.year] = {'u_price': price.usa_avg_price, 'u_count': 1,
-                    'k_price': price.uk_avg_price, 'k_count': 1}                
+                    brand_price[price.year] = {'u_price': usa_price, 'u_count': 1,
+                    'k_price': uk_price, 'k_count': 1}                
             # brand_price = model.price_set.all().order_by('year')
             # car_price.append(item.price_set.all().order_by('year'));
 
