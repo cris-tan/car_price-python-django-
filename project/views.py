@@ -422,8 +422,10 @@ def getChartData(param, currency_rate, type=None):
     tp_chartDataForCountry["UK"] = []
     tp_chartDataForCountry["USA"] = []
     for item in brand_price:
-        tp_chartDataForCountry["USA"].append([float(item), float(brand_price[item]['u_price']/brand_price[item]['u_count'])])
-        tp_chartDataForCountry["UK"].append([float(item), float(brand_price[item]['k_price']/brand_price[item]['k_count'])])
+        if brand_price[item]['u_price'] != 0:
+            tp_chartDataForCountry["USA"].append([float(item), float(brand_price[item]['u_price']/brand_price[item]['u_count'])])
+        if brand_price[item]['k_price'] != 0:
+            tp_chartDataForCountry["UK"].append([float(item), float(brand_price[item]['k_price']/brand_price[item]['k_count'])])
 
     for item in car_price:
         # if item["country"] not in tp_chartDataForCountry:
