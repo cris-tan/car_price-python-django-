@@ -370,9 +370,8 @@ def getChartData(param, currency_rate, type=None):
                            .annotate(davg=Avg('price')).order_by("country")
         
         make = Make.objects.filter(name=param['car_name']).first()
-        model = make.model_set.all()
-        for item in model:
-           car_price.append(item.price_set.all().order_by('year'))
+        model = make.model_set.filter(name=param['car_brand']).first()
+        car_price.append(model.price_set.all().order_by('year'))
 
     elif "car_name" in param:
         
@@ -430,7 +429,9 @@ def getChartData(param, currency_rate, type=None):
     for item in car_price:
         # if item["country"] not in tp_chartDataForCountry:
         #     tp_chartDataForCountry[item["country"]] = []        
+        print "-------"
         for price in item:
+            print price.usa_avg_price
             if price.usa_avg_price: 
                 tp_chartDataForCountry["USA"].append([float(price.year), float(price.usa_avg_price)])
 
